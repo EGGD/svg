@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import ReactSVG from 'react-svg';
 import logo from './logo.svg';
+import test from './test.svg';
 import './App.css';
-
 class App extends Component {
   render() {
     return (
@@ -13,6 +14,7 @@ class App extends Component {
         <p>
           开始学习svg来构图并创建动画
         </p>
+        <img src={test} alt="test" />        
       </div>
     );
   }

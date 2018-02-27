@@ -26,3 +26,8 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+.grapes{
+  stroke-dashoffset: 40; 
+  stroke-dasharray: 30 5; 
+  stroke-width: 3;
+}

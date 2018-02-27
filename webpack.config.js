@@ -60,7 +60,7 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg)$/i,
         loader: 'url-loader?limit=8192&name=./img/[hash].[ext]',
-      }
+      },
     ]
   }
 }
