@@ -7,14 +7,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      svglineOneFillValue: 100,
-      svglineOneUnFillValue: parseInt(Math.random() * 100),
+      svglineOneFillValue: 255,
+      svglineOneUnFillValue: parseInt(Math.random() * 255),
     }
   }
   componentDidMount() {
-   let initSvgNumberSetTime= setTimeout(() => {
+  //  let initSvgNumberSetTime= setTimeout(() => {
       this.setSvgNumber();
-    }, 1000);
+    // }, 1000);
   }
   setSvgNumber() {
     let fillValue = this.state.svglineOneFillValue;
@@ -34,7 +34,7 @@ class App extends Component {
     clearTimeout(timeout);        
     let timeout = setTimeout(() => {
       this.setSvgNumber();          
-    }, 50);
+    }, 20);
   }
   componentWillUnmount(){
     clearTimeout(initSvgNumberSetTime);
@@ -50,12 +50,12 @@ class App extends Component {
           开始学习svg来构图并创建动画
         </p>
         <img src={test} alt="test" />
-        <svg width="200" height="200" viewBox="0 0 200 200">
-          <line x1="10" y1="10" x2="110" y2="10" fill="none" strokeWidth="12" stroke="#666" strokeLinecap="round" />
-          <line x1="10" y1="10" x2="110" y2="10" fill="none" strokeWidth="12" stroke="#FC4D04" strokeDasharray="100" strokeDashoffset={this.state.svglineOneFillValue} strokeLinecap="round" />
-          <text x="45%" y="52%" >{this.state.svglineOneFillValue}</text>
-          <circle cx="50%" cy="50%" r="54" fill="none" stroke="#666" strokeWidth="12" strokeLinecap="round" />
-          <circle cx="50%" cy="50%" r="54" fill="none" stroke="#FC4D04" strokeWidth="12" strokeDasharray="339"  strokeDashoffset={this.state.svglineOneFillValue} strokeLinecap="round" />
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          {/* <line x1="10" y1="10" x2="90" y2="10" fill="none" strokeWidth="5" stroke="#666" strokeLinecap="round" />
+          <line x1="10" y1="10" x2="90" y2="10" fill="none" strokeWidth="5" stroke="#FC4D04" strokeDasharray="100" strokeDashoffset={this.state.svglineOneFillValue} strokeLinecap="round" /> */}
+          <text x="50%" y="50%" style={{textAnchor: "middle", dominantBaseline: "middle"}} >{this.state.svglineOneFillValue}</text>
+          <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth="10" opacity="0.3" strokeLinecap="round" />
+          <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#FC4D04" strokeWidth="10"  strokeDasharray="255"  strokeDashoffset={this.state.svglineOneFillValue} strokeLinecap="round" />
         </svg>
         <svg width="200" height="200" viewBox="0 0 200 200"  >
           <polygon  strokeDasharray="339" fill="none" stroke="#666" strokeDashoffset={this.state.svglineOneFillValue} points="66.2,41.2 38.8,91 64.2,153.8 154,155.5 175,90.8 135.5,38.8 "/>
