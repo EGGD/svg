@@ -123,13 +123,13 @@ class CircleAndLine extends Component {
           </g>
           <g id="line">
               {/* R */}
-              <line stroke="#666" strokeWidth={3} opacity="0.3" x1="45" y1="171.4" x2="45" y2="293" strokeLinecap="round"/>
+              <line stroke="#666" strokeWidth={3} opacity={svgCircleOpacity} x1="45" y1="171.4" x2="45" y2="293" strokeLinecap="round"/>
               <line strokeDasharray="121" strokeDashoffset={svgCircleFillValueR} stroke={svgCircleColor} strokeWidth={3} x1="45" y1="171.4" x2="45" y2="293" strokeLinecap="round"/>
               {/* G */}
-              <line stroke="#666" strokeWidth={3} opacity="0.3" x1="55" y1="171.4" x2="55" y2="293" strokeLinecap="round"/>
+              <line stroke="#666" strokeWidth={3} opacity={svgCircleOpacity} x1="55" y1="171.4" x2="55" y2="293" strokeLinecap="round"/>
               <line strokeDasharray="121" strokeDashoffset={svgCircleFillValueG}  stroke={svgCircleColor} strokeWidth={3} x1="55" y1="171.4" x2="55" y2="293" strokeLinecap="round"/>
               {/* B */}
-              <line stroke="#666" strokeWidth={3} opacity="0.3" x1="50.2" y1="171.4" x2="50.2" y2="293" strokeLinecap="round"/>
+              <line stroke="#666" strokeWidth={3} opacity={svgCircleOpacity} x1="50.2" y1="171.4" x2="50.2" y2="293" strokeLinecap="round"/>
               <line strokeDasharray="121" strokeDashoffset={svgCircleFillValueB}  stroke={svgCircleColor} strokeWidth={3} x1="50.2" y1="171.4" x2="50.2" y2="293" strokeLinecap="round"/>
           </g>
           <g id="C">
@@ -149,7 +149,7 @@ class CircleAndLine extends Component {
             <circle transform="rotate(-90, 36 152.7)" fill="none" strokeDasharray="94" strokeDashoffset={svgCircleFillValueK} strokeWidth={svgCircleLineWidth} stroke={svgCircleColor} strokeLinecap="round" cx="36" cy="152.7" r="15" />
           </g>
           <g id="RGB">
-            <rect fill={svgLineColor} x="11.4" y="3.5" width="49.3" height="3.7" strokeLinecap="round"/>
+            <rect fill={svgLineColor} x="12.5" y="1" width="75" height="6" strokeLinecap="round"/>
           </g>
         </svg>
       </div>

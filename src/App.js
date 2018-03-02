@@ -64,7 +64,7 @@ class App extends Component {
         <Circle svgCircleHeight="40" svgCircleWidth="40"  svgCircleColor="#FC4D04" svgCircleOneUnFillValue="50" svgCircleLineWidth="20" />
         <CircleAndLine svgLineColor="#FC4D04" svgCircleHeight="600" svgCircleWidth="200" 
          svgCircleColor="#FC4D04" svgCircleUnFillValueC="50" svgCircleUnFillValueM="50"
-         svgCircleUnFillValueY="50" svgCircleUnFillValueK="50" svgCircleLineWidth="6"/>
+         svgCircleUnFillValueY="50" svgCircleUnFillValueK="50" svgCircleLineWidth="6" svgCircleOpacity="0.1"/>
         
       </div>
     );
