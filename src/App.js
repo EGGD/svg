@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Circle from './svg/Circle.js';
+import CircleAndLine from './svg/CircleAndLine.js';
 import logo from './logo.svg';
 import test from './test.svg';
 import './App.css';
@@ -49,7 +50,7 @@ class App extends Component {
         <p>
           开始学习svg来构图并创建动画
         </p>
-        <img src={test} alt="test" />
+        {/* <img src={test} alt="test" /> */}
         {/* <svg width="100" height="100" viewBox="0 0 100 100">
           <line x1="10" y1="10" x2="90" y2="10" fill="none" strokeWidth="5" stroke="#666" strokeLinecap="round" />
           <line x1="10" y1="10" x2="90" y2="10" fill="none" strokeWidth="5" stroke="#FC4D04" strokeDasharray="100" strokeDashoffset={this.state.svglineOneFillValue} strokeLinecap="round" />
@@ -60,7 +61,11 @@ class App extends Component {
         <svg width="200" height="200" viewBox="0 0 200 200"  >
           <polygon  strokeDasharray="339" fill="none" stroke="#666" strokeDashoffset={this.state.svglineOneFillValue} points="66.2,41.2 38.8,91 64.2,153.8 154,155.5 175,90.8 135.5,38.8 "/>
         </svg> */}
-        <Circle svgCircleHeight="40" svgCircleWidth="40"  svgCircleColor="#FC4D04" svgCircleOneUnFillValue="200" svgCircleLineWidth="20" />
+        <Circle svgCircleHeight="40" svgCircleWidth="40"  svgCircleColor="#FC4D04" svgCircleOneUnFillValue="50" svgCircleLineWidth="20" />
+        <CircleAndLine svgLineColor="#FC4D04" svgCircleHeight="600" svgCircleWidth="200" 
+         svgCircleColor="#FC4D04" svgCircleUnFillValueC="50" svgCircleUnFillValueM="50"
+         svgCircleUnFillValueY="50" svgCircleUnFillValueK="50" svgCircleLineWidth="6"/>
+        
       </div>
     );
   }

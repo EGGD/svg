@@ -4,9 +4,9 @@ class Circle extends Component {
     super(props);
     this.state = {
       circleInit: {
-        svgTextColor: '#000',        
-        svgCircleHeight:"100",
-        svgCircleWidth:"100",
+        svgTextColor: '#000',
+        svgCircleHeight: "100",
+        svgCircleWidth: "100",
         svgCircleOneFillValue: 255,
         svgCircleOneUnFillValue: parseInt(Math.random() * 255),
         svgCircleColor: '#000',
@@ -16,17 +16,15 @@ class Circle extends Component {
     }
   }
   componentDidMount() {
-    this.svgInit()
-    console.log(this.state.circleInit);
-
+    this.svgInit();
     this.setSvgNumber();
   }
-  svgInit(){
+  svgInit() {
     let oldCircleInit = this.state.circleInit;
     let newCircleInit = this.props;
     for (const key in newCircleInit) {
       if (oldCircleInit.hasOwnProperty(key)) {
-        oldCircleInit[key] = newCircleInit[key]
+        key === 'svgCircleOneUnFillValue' ? oldCircleInit[key] = 255 - newCircleInit[key] : oldCircleInit[key] = newCircleInit[key];
       }
     }
   }
@@ -58,13 +56,13 @@ class Circle extends Component {
   }
   render() {
     let circleInit = this.state.circleInit,
-        svgCircleWidth=circleInit.svgCircleWidth,
-        svgCircleHeight=circleInit.svgCircleHeight,
-        svgTextColor = circleInit.svgTextColor,
-        svgCircleColor = circleInit.svgCircleColor,
-        svgCircleOneFillValue = circleInit.svgCircleOneFillValue,
-        svgCircleLineWidth = circleInit.svgCircleLineWidth,
-        svgCircleOpacity = circleInit.svgCircleOpacity;
+      svgCircleWidth = circleInit.svgCircleWidth,
+      svgCircleHeight = circleInit.svgCircleHeight,
+      svgTextColor = circleInit.svgTextColor,
+      svgCircleColor = circleInit.svgCircleColor,
+      svgCircleOneFillValue = circleInit.svgCircleOneFillValue,
+      svgCircleLineWidth = circleInit.svgCircleLineWidth,
+      svgCircleOpacity = circleInit.svgCircleOpacity;
     return (
       <div>
         <svg width={svgCircleWidth} height={svgCircleHeight} viewBox="0 0 100 100">
