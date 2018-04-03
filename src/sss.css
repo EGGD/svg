@@ -1,0 +1,18 @@
+
+.text--transparent {
+    fill: transparent;
+    background: red;
+  }
+  
+.anim-shape {
+transform-origin: 0x 150px;
+transform: scale(0, 1) translate(0, 0);
+animation: moving-panel 3s 1 alternate;
+}
+
+@keyframes moving-panel {
+100% {
+    transform: scale(1, 1) translate(20px, 0);
+}
+}
+  

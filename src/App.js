@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Circle from './svg/Circle.js';
 import CircleAndLine from './svg/CircleAndLine.js';
+import Text from './svg/Text';
 import logo from './logo.svg';
 import test from './test.svg';
 import './App.css';
@@ -65,11 +66,12 @@ class App extends Component {
         <CircleAndLine svgLineColor="#FC4D04" svgCircleHeight="600" svgCircleWidth="200" 
          svgCircleColor="#FC4D04" svgCircleUnFillValueC="50" svgCircleUnFillValueM="50"
          svgCircleUnFillValueY="50" svgCircleUnFillValueK="50" svgCircleLineWidth="6" svgCircleOpacity="0.1"/> */}
-        <svg width={100} height={100} viewBox="0 0 100 100">
+        {/* <svg width={100} height={100} viewBox="0 0 100 100">
           <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={3} opacity={0.3} strokeLinecap="round" />
           <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={6} strokeDasharray="20" animationFillMode="forwards" strokeLinecap="round" />
           <animate attributeName="stroke-dashoffset" begin="0s" from="0" to="20" dur="3s" fill="freeze"  />
-        </svg>
+        </svg> */}
+        <Text/>
       </div>
     );
   }
