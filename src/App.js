@@ -3,7 +3,7 @@ import Circle from './svg/Circle.js';
 import CircleAndLine from './svg/CircleAndLine.js';
 import Text from './svg/Text';
 import logo from './logo.svg';
-import test from './test.svg';
+import NewCircle from './svg/NewCircle.js';
 import './App.css';
 class App extends Component {
   constructor(props) {
@@ -66,12 +66,37 @@ class App extends Component {
         <CircleAndLine svgLineColor="#FC4D04" svgCircleHeight="600" svgCircleWidth="200" 
          svgCircleColor="#FC4D04" svgCircleUnFillValueC="50" svgCircleUnFillValueM="50"
          svgCircleUnFillValueY="50" svgCircleUnFillValueK="50" svgCircleLineWidth="6" svgCircleOpacity="0.1"/> */}
+<<<<<<< HEAD
         {/* <svg width={100} height={100} viewBox="0 0 100 100">
           <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={3} opacity={0.3} strokeLinecap="round" />
           <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={6} strokeDasharray="20" animationFillMode="forwards" strokeLinecap="round" />
           <animate attributeName="stroke-dashoffset" begin="0s" from="0" to="20" dur="3s" fill="freeze"  />
         </svg> */}
         <Text/>
+=======
+         {/* 新的圆  */}
+        {/* <NewCircle/> */}
+         
+        <svg width={100} height={100} viewBox="0 0 100 100">
+          <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={3} opacity={0.3} strokeLinecap="round" />
+          <circle  cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={3} strokeDasharray="255"  strokeLinecap="round" />
+          {/* <animate attributeName="stroke-dashoffset" begin="0s" from="255" to="20" dur="3s" fill="freeze"  /> */}
+        </svg>
+        {/* svg 如果要线性动画的话需要path来配合 */}
+        <svg  width={300} height={300} viewBox="0 0 300 300">
+          <path d="M10,110 A120,120 -45 0,1 110 10 A120,120 -45 0,1 10,110"
+                stroke="lightgrey" strokeWidth="2"
+                fill="none" id="theMotionPath"/>
+            <circle r="5" fill="red">
+              <animateMotion dur="6s" repeatCount="indefinite">
+                <mpath xlinkHref="#theMotionPath"/>
+              </animateMotion>
+            </circle>
+        </svg>
+    
+
+
+>>>>>>> 9f517ca83b5650f64b88312aeb11e9f4417ad35a
       </div>
     );
   }
