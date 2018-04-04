@@ -1,0 +1,181 @@
+require.config({
+	baseUrl: '../../js',
+	paths: {
+		'imm': 'immersed',
+		'mui': 'mui.min',
+		'app': 'app',
+		'dataGet': 'DataGet',
+		"pic": "mui.picker",
+		"pop": "mui.poppicker",
+		'Vue': 'vue/vue.min'
+	}
+});
+
+require(['imm', 'mui', 'app', 'dataGet', 'pic', 'pop','Vue'], function(_, mui, app, dataGet, pic, pop,Vue) {
+	mui.init({
+		pullRefresh:{
+			container:'#pullrefresh',
+			up:{
+				height: 50,
+				auto: true,
+				contentrefresh: '正在加载...',
+				contentnomore: '没有更多数据了',
+				callback: pullfresh_up
+			}
+		}
+	});
+
+	var vm=new Vue({
+		el:'#aRs',
+		data:{
+			items:[],
+			lastDate:new Date()
+		},
+		methods: {
+			list_click: function(data) {
+				console.log(data.id)
+//				var url = 'ajpq.html'
+//				if(temp.TacheID!=202){
+//					url = 'ajbl.html';					
+//				}
+//				mui.openWindow({
+//					url: url,
+//					id: url,
+//					extras: {
+//						ajid: temp.ID
+//					}
+//				});	
+			}
+		}
+	});
+	mui.plusReady(function() {
+		var user = app.getUserInfo();
+		var sId,cId;
+		console.log(user)
+		//选择中队和班级
+		dataGet.getAllTeamList(user.ID, function(data) {
+			document.getElementById("Squadron_list").addEventListener('tap', function() {
+				dataGet.choosePick(window.ArrayData.teamList, {
+						text: ['#Squadron_Name', '#Class_Name'],
+						value: ['#Squadron_ID', '#Class_ID'],
+						options: {
+							layer: 2
+						}
+					},
+					function(items) {
+						if(!items){
+							return
+						}else if(items[0].value==sId && items[1].value==cId){
+							return
+						}else {
+							sId=items[0].value;
+							cId=items[1].value;
+						}
+//						console.log(items[0].value,sId,items[1].value,cId)
+						console.log(items)
+						vm.lastDate=new Date();
+						vm.items=[];
+						pullfresh_up(items[0].value,items[1].value);
+						console.log(vm.items)
+					}
+				)
+			}, false)
+		})
+		
+		
+	});
+		function pullfresh_up(aRsszd,aRssbc){
+			if(!aRsszd || !aRssbc){aRsszd=0,aRssbc=0}
+			var that=this;
+			var datenull=[];
+//			var param={
+//				time:daytime.Format('yyyy-MM-dd'),
+//				sszd:aRsszd,
+//				ssbc:aRssbc,
+//				day:'5'
+//			}
+			var param=mui.param({
+				time:vm.lastDate.Format('yyyy-MM-dd'),
+				sszd:aRsszd,
+				ssbc:aRsszd,
+				day:'10'
+			});
+			var url=app.webApi + 'api/SignArea/GetUserSignInList?'+param
+			console.log(url)
+			mui.ajax({
+				url: url,
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+					//判断是否还有数据  如果没有了的话就提示没有数据了
+					datenull=data;
+					//将每个数据赋值给vm
+					for(var i = 0; i < data.length; i++) {
+						var obj = aRValue(data[i]);
+						vm.items.push(obj);
+					}
+					//获取下一部分数据  获取了多少天 减去多少天
+					vm.lastDate.dateAdd('d',-10);
+				},
+				error: function(e, x, t) {
+					console.log('读取失败');
+				},
+				complete: function() {
+					that.endPullupToRefresh(datenull.length==0);
+				}
+			});
+		}
+		function aRValue(data){
+			var aRs={};
+			aRs.checked_In='';
+			aRs.checken_End='';
+			aRs.name='';
+			aRs.id='';
+			for (var i = 0; i < data.usersigninlist.length; i++) {
+				var temp=data.usersigninlist[i];
+				aRs.name=temp.username;
+				aRs.id=temp.sgid;
+				//拿签到时间
+				var _stime=transposeDate(temp.start_stime || "2017-03-03 08:30:00");
+				var _etime=transposeDate(temp.start_etime || "2017-03-03 09:50:00");
+				
+				var _eStime=transposeDate(temp.end_stime || "2017-03-03 17:30:00");
+				var _eEtime=transposeDate(temp.end_etime || "2017-03-03 18:50:00");
+				
+				var num=transposeDate(temp.signinall);
+				//把实际签到时间定义为Date类型
+				var signinall = new Date(temp.signinall);
+				//判断实际的签到时间是否在范围内
+				if(num >= _stime && num <= _etime){
+					//判断最早的签到时间
+					if(!aRs._strtime || aRs._strtime>signinall){
+						aRs._strtime=signinall
+					}
+				}
+				
+				if(aRs._strtime){
+					aRs.checked_In=new Date(aRs._strtime).Format('hh:mm');
+				}
+				//因为签退时间没给  所以先放着
+				aRs.checken_End='';
+				
+			}
+			if(aRs.name==''){aRs.name='空'}
+			if(aRs.checked_In==''){aRs.checked_In='未签到'}
+			if(aRs.checken_End==''){aRs.checken_End='未签退'}
+			return aRs
+		}
+		// 把日期类或者字符类转换为浮点数类
+		function transposeDate(data){
+			if(typeof(data)=='string') data=new Date(data);
+			var num=data.Format('h.mmss');
+			return parseFloat(num);
+		}
+		//更新页面
+		window.addEventListener('refresh',function(){
+			var self=plus.webview.currentWebview();
+			self.reload(true);
+			console.log('refresh');
+		});
+		
+});
