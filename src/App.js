@@ -66,14 +66,12 @@ class App extends Component {
         <CircleAndLine svgLineColor="#FC4D04" svgCircleHeight="600" svgCircleWidth="200" 
          svgCircleColor="#FC4D04" svgCircleUnFillValueC="50" svgCircleUnFillValueM="50"
          svgCircleUnFillValueY="50" svgCircleUnFillValueK="50" svgCircleLineWidth="6" svgCircleOpacity="0.1"/> */}
-<<<<<<< HEAD
         {/* <svg width={100} height={100} viewBox="0 0 100 100">
           <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={3} opacity={0.3} strokeLinecap="round" />
           <circle cx="50%" cy="50%" r="40.65" fill="none" stroke="#666" strokeWidth={6} strokeDasharray="20" animationFillMode="forwards" strokeLinecap="round" />
           <animate attributeName="stroke-dashoffset" begin="0s" from="0" to="20" dur="3s" fill="freeze"  />
         </svg> */}
         <Text/>
-=======
          {/* 新的圆  */}
         {/* <NewCircle/> */}
          
@@ -96,7 +94,6 @@ class App extends Component {
     
 
 
->>>>>>> 9f517ca83b5650f64b88312aeb11e9f4417ad35a
       </div>
     );
   }
