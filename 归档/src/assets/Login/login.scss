@@ -1,0 +1,35 @@
+$background: #cccccc;
+$mainHeight: 80vh;
+$headerHeight: 10vh;
+body {
+  // background: #cccccc;
+}
+a{
+  text-decoration: none;
+}
+.el-container {
+  height: 100vh;
+}
+.el-header,
+.el-footer {
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  height: $headerHeight !important;
+  line-height: $headerHeight;
+}
+
+.el-main {
+  background-color: #e9eef3;
+  color: #333;
+  text-align: center;
+}
+.login {
+  .el-form {
+    margin-top: 30vh;
+    .el-input {
+      width: 20%;
+    }
+  }
+}
+
