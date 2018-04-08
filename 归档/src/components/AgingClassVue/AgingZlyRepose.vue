@@ -6,14 +6,12 @@
 // 资料员时效类上报页面
 export default {
   methods: {
-    handleClick (row) {
-      console.log(row)
+    handleClick(row) {
+      console.log(row);
     }
   },
-  data () {
-    return {
-
-    }
+  data() {
+    return {};
   }
-}
+};
 </script>

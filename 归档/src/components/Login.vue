@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main class="login">
-      <el-form  label-position='top' :model='login' status-icon ref="login">
+      <el-form label-position='top' :model='login' status-icon ref="login">
         <el-form-item prop="LoginName">
           账号：
           <el-input type="text" v-model="login.LoginName"></el-input>
@@ -23,36 +23,36 @@
 <script>
 // 登录页面
 export default {
-  data () {
+  data() {
     return {
       login: {
         LoginName: '陈行剑',
         LoginPwd: '123456'
       }
-    }
+    };
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.$store.dispatch('subLogin', this.login).then(value => {
             if (value.UNIT_ID !== undefined) {
-              this.$store.dispatch('userAuthority').then((aut) => {
-                this.$router.push({ path: '/index' })
-              })
+              this.$store.dispatch('userAuthority').then(aut => {
+                this.$router.push({ path: '/index' });
+              });
               // this.$router.push({ name: 'HomeTest' })
               // this.$router.push({ path: '/index' })
               // this.$router.go('/index')
             }
-          })
+          });
         }
-      })
+      });
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

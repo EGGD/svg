@@ -24,22 +24,14 @@
     </el-container>
   </el-container>
 </template>
-<style>
-.el-main {
-  padding: 0;
-}
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-}
-</style>
+
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 export default {
-  data () {
+  data() {
     return {
       isCollapse: false
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -49,16 +41,26 @@ export default {
   },
   methods: {
     // 拼接导航的index
-    childStringIndex (mindex, cindex) {
-      return `${mindex}-${cindex}`
+    childStringIndex(mindex, cindex) {
+      return `${mindex}-${cindex}`;
     },
-    goStringIndex (url) {
-      return `/index/${url}`
+    goStringIndex(url) {
+      return `/index/${url}`;
     },
     // 是否缩小
-    hand () {
-      this.isCollapse = !this.isCollapse
+    hand() {
+      this.isCollapse = !this.isCollapse;
     }
   }
-}
+};
 </script>
+
+<style scoped>
+.el-main {
+  padding: 0;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+</style>
