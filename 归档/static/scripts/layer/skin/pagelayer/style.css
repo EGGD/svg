@@ -1,0 +1,76 @@
+﻿.layui-layer-title {
+    padding: 0 80px 0 20px;
+    border-bottom: 0px solid #eee !important;
+    font-size: 14px;
+    overflow: hidden;
+    border-radius: 2px 2px 0 0;
+    cursor: move;
+    background-color: #026a9e;
+    color: white;
+    height: 36px;
+    line-height: 36px;
+}
+
+.layui-layer-setwin {
+    position: absolute;
+    right: 15px;
+    top: 11px;
+    font-size: 0;
+    line-height: initial;
+}
+
+
+/*最小化*/
+
+.layui-layer-min {
+    background: url(min.png) no-repeat;
+    height: 16px !important;
+    width: 16px !important;
+    background-size: cover;
+}
+
+.layui-layer-min:hover {
+    opacity: .7
+}
+
+.layui-layer-setwin .layui-layer-min cite {
+    display: none;
+}
+
+
+/*最大化*/
+
+.layui-layer-setwin.layui-layer-max {
+    background-position: 0px 0px
+}
+
+.layui-layer-setwin .layui-layer-max:hover {
+    background-position: 0px 0px;
+    opacity: .7
+}
+
+.layui-layer-ico.layui-layer-max {
+    background: url(max.png) no-repeat;
+    height: 16px !important;
+    width: 16px !important;
+    background-size: cover;
+}
+
+
+/*关闭*/
+
+.layui-layer-setwin.layui-layer-close1 {
+    background-position: 0 -0px;
+    cursor: pointer;
+}
+
+.layui-layer-ico.layui-layer-close.layui-layer-close1 {
+    background: url(close.png) no-repeat;
+    height: 16px !important;
+    width: 16px !important;
+    background-size: cover;
+}
+
+.layui-layer-close:hover {
+    opacity: .7
+}

@@ -1,0 +1,100 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "jwerty@0.3.2",
+        "scope": null,
+        "escapedName": "jwerty",
+        "name": "jwerty",
+        "rawSpec": "0.3.2",
+        "spec": "0.3.2",
+        "type": "version"
+      },
+      "D:\\tz\\Techzen.SZCG.3.0"
+    ]
+  ],
+  "_cnpm_publish_time": 1365607579799,
+  "_from": "jwerty@0.3.2",
+  "_hasShrinkwrap": false,
+  "_id": "jwerty@0.3.2",
+  "_inCache": true,
+  "_location": "/jwerty",
+  "_npmUser": {
+    "name": "keithamus",
+    "email": "npm@keithcirkel.co.uk"
+  },
+  "_npmVersion": "1.2.15",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "jwerty@0.3.2",
+    "scope": null,
+    "escapedName": "jwerty",
+    "name": "jwerty",
+    "rawSpec": "0.3.2",
+    "spec": "0.3.2",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npm.taobao.org/jwerty/download/jwerty-0.3.2.tgz",
+  "_shasum": "63824f602606867e0aeffb68cd721352f079c97d",
+  "_shrinkwrap": null,
+  "_spec": "jwerty@0.3.2",
+  "_where": "D:\\tz\\Techzen.SZCG.3.0",
+  "bugs": {
+    "url": "https://github.com/keithamus/jwerty/issues"
+  },
+  "dependencies": {},
+  "description": "Awesome handling of keyboard events",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "63824f602606867e0aeffb68cd721352f079c97d",
+    "size": 51489,
+    "noattachment": false,
+    "tarball": "http://registry.npm.taobao.org/jwerty/download/jwerty-0.3.2.tgz"
+  },
+  "ender": "./jwerty.enderBridge.js",
+  "homepage": "http://keithamus.github.com/jwerty",
+  "keywords": [
+    "key",
+    "dom",
+    "keyup",
+    "KeyboardEvent",
+    "addEventListener",
+    "jQuery",
+    "Zepto",
+    "browser",
+    "ender"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "main": "./jwerty.js",
+  "maintainers": [
+    {
+      "name": "keithamus",
+      "email": "npm@keithcirkel.co.uk"
+    }
+  ],
+  "name": "jwerty",
+  "optionalDependencies": {},
+  "publish_time": 1365607579799,
+  "readme": "ERROR: No README data found!",
+  "readmeFilename": "README-DETAILED.md",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git+https://github.com/keithamus/jwerty.git"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keithamus/jwerty.git"
+  },
+  "version": "0.3.2"
+}

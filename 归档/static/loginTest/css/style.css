@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* ------------- 公共样式 --------------- */
+body {font-family:"Microsoft Yahei", "微软雅黑", "宋体", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size: 12px;color:#333;padding: 0px;background-position: 0px 0px;margin: 0px; }
+div,form,img,ul,ol,li,p{margin: 0;padding: 0;border: 0;list-style-type: none;}
+img {margin: 0px;padding: 0px;display: inline;}
+li,ol{list-style-type:none;}
+h1,h2,h3 { margin:0; padding:0;font-size:12px; font-weight:normal;}
+a:link{color: #333; text-decoration:none;}
+a:visited {color: #333; text-decoration:none;}
+a:hover {color: #f65515; text-decoration:none;}
+.clear{ clear:both; }.czleft{ float:left;}.czright{ float:right;}
+div:after, ul:after, dl:after, .clearfix:after {clear: both;content: "";display: block;height: 0;visibility: hidden;}
+.czbs{ background:#FFF; padding:10px; }
+@keyframes myfirst {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}  
+@-webkit-keyframes myfirst {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}  
+
+
+/*登录LOGIN*/
+.loginbj .diqiul{position:absolute; top:20px; left:20px; width: 444px; height: 466px;z-index:1;animation:myfirst 30s linear infinite; -webkit-animation:myfirst 30s linear infinite; animation-play-state:running; -webkit-animation-play-state:running;}
+.loginbj .diqiur{position:absolute; top:0; right:0px;  background:url(../images/xixixi.png) no-repeat; width: 418px; height: 427px;z-index:1;}
+.loginbj{ background: url(../images/login_bj.png) no-repeat center center fixed;background-size:cover; overflow: hidden; width: 100%; height: 100%;z-index: -1;}
+.loginbj .login_center,.loginbj .login_bj461,.loginbj .login_b{}
+.loginbj .login_center{ position: fixed; top:45%; left:50%; margin-left:-215px;margin-top:-200px;z-index:10; }
+.loginbj .login_logo{  width:439px; height:42px; margin: 30px auto; text-align: center;}
+.loginbj .login_bj461{ background:url(../images/login_bj461.png) no-repeat;height:289px;position:relative; left: 15px;}
+.loginbj .login_bj461 .login_p{width:340px; margin: 0 auto}
+.loginbj .login_bj461 .login_p p{ float:left; width: 310px;}
+.loginbj .login_bj461 .login_p p.top25{ margin-top:25px;}
+.loginbj .login_bj461 .login_p p.top15{ margin-top:15px;}
+.loginbj .login_bj461 .login_p p label{ line-height:30px; font-size:14px; color:#000; float:left; width:60px;}
+.loginbj .login_bj461 .login_p .login_text{ border:1px solid #CCC; padding:2px 0 2px 58px; line-height:40px; height:40px; border-radius:5px;}
+.loginbj .login_bj461 .login_p .text150{width:248px;}
+.loginbj .login_bj461 .login_p span.czl{ color: #fff; font-size: 14px; float: left}
+.loginbj .login_bj461 .login_p span.czr{ font-size: 14px; float: right;color: #fff; }
+.loginbj .login_bj461 .login_p span.czr a{color: #fff; text-decoration:none;}
+.loginbj .login_bj461 .login_p span.czr a:hover{color: #fff; text-decoration:none; background:#e85221; display: block; padding:2px;}
+.loginbj .login_bj461 .login_p .checkbox{ float: left; border: 1px solid #666; width: 15px;height: 15px;}
+.loginbj .login_b{ background:url(../images/login_b.png) no-repeat; height:78px; width: 400px; margin:0 auto}
+.loginbj .login_input{ background:url(../images/login-icon.png) no-repeat;vertical-align: middle; width:35px; height:25px; display:block;position:absolute;left:64px; border-right: 1px  solid #ccc}
+.loginbj .login_input.name{ background-position: 0 0; top:35px; }
+.loginbj .login_input.pps{ background-position: 0 -50px;top:106px; }
+.loginbj .login_m{ float:left; display:inline;}
+.loginbj .login_submitok {background:#e85221;border: 0 none;color:#fff;display: inline-block;font-size: 18px;height: 45px;overflow: hidden;width: 310px; border-radius:5px;cursor: pointer; font-weight: bold;}
+.loginbj .login_submitok:hover{ background: #e32c2f; display: block;}
+.loginbj .login_bom{position:absolute; bottom:0; height: 40px; line-height: 40px; width: 100% ; color: #7aa7c8; background: #163f63; text-align: center}
+.loginbj .login_bom_fangzi{ height: 105px; background: url(../images/fangzi.png);position:absolute; bottom:40px; width: 100%; }
+.loginbj #large-header{position:absolute;bottom:105px; z-index: -10; }
+
