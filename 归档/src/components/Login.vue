@@ -40,6 +40,9 @@ export default {
               this.$store.dispatch('userAuthority').then(aut => {
                 this.$router.push({ path: '/index' });
               });
+              // this.$router.push({ name: 'HomeTest' })
+              // this.$router.push({ path: '/index' })
+              // this.$router.go('/index')
             }
           });
         }
