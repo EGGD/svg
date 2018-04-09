@@ -8,6 +8,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 // const modules = Object.assign({}, login, agingClass)
 // console.log(modules)
+
 const store = new Vuex.Store({
   modules: {
     login,

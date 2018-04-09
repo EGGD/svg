@@ -627,8 +627,62 @@ TGisMap.prototype.addPolygon = function(draws, options, source) {
 
 // 轨迹回放动画
 TGisMap.prototype.trackBack = function(opts, source) {
- 
-  
+  var self=this;
+  let line=[
+    [-50.35323858261111, -15.75703382492064],
+    [11.103036403655977, -5.674567222595201],
+    [-40.41316509246829, 25.51289319992067]
+  ]
+  var routeCoords = line;
+  // console.log(routeCoords)
+  var routeLength = routeCoords.length;
+
+  var routeFeature = new ol.Feature({
+    type: 'route',
+    geometry: new ol.geom.LineString(routeCoords)
+  });
+  var geoMarker = new ol.Feature({
+    type: 'geoMarker',
+    geometry: new ol.geom.Point(routeCoords[0])
+  });
+  var startMarker = new ol.Feature({
+    type: 'icon',
+    geometry: new ol.geom.Point(routeCoords[0])
+  });
+  var endMarker = new ol.Feature({
+    type: 'icon',
+    geometry: new ol.geom.Point(routeCoords[routeLength - 1])
+  });
+
+  var styles = {
+    'route': new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        width: 6, color: [237, 212, 0, 0.8]
+      })
+    }),
+    'icon': new ol.style.Style({
+      image: new ol.style.Icon({
+        anchor: [0.5, 1],
+        src: 'https://openlayers.org/en/v4.6.5/examples/data/icon.png'
+      })
+    }),
+    'geoMarker': new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 7,
+        snapToPixel: false,
+        fill: new ol.style.Fill({ color: 'black' }),
+        stroke: new ol.style.Stroke({
+          color: 'white', width: 2
+        })
+      })
+    })
+  };
+  self.vectorLayer = new ol.layer.Vector({
+    source: new ol.source.Vector({
+      features: [routeFeature, geoMarker, startMarker, endMarker]
+    })
+  });
+  self.map.addLayer(self.vectorLayer)
 
 };
 
