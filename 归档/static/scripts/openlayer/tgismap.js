@@ -65,19 +65,24 @@
   self.polygonLayer = new ol.layer.Vector({
     source: self.polygonSource
   });
-  self.vectorLayer=null
 
   //不同地图层级对应的底图数据源
   var tileLayerSource1, tileLayerSource2, tileLayerSource3, tileLayerSource4, tileLayerSource5, tileLayerSource6;
+  //设置坐标为WGS84坐标的数据源
   var projection = ol.proj.get('EPSG:4326');
+  //获取WGS84坐标数据源的全部范围
   var projectionExtent = projection.getExtent();
+  //获取范围宽度
   var size = ol.extent.getWidth(projectionExtent) / 256;
+  //设置一共可以分多少个层级来显示地图 缩放
   var resolutions = new Array(22);
+  //设置地图缩放的id
   var matrixIds = new Array(22);
   for (var z = 0; z < 22; ++z) {
     resolutions[z] = size / Math.pow(2, z);
     matrixIds[z] = z;
   }
+  //设置不同层级数据源内容 但是还没看懂到时候加载那部分的地图
   tileLayerSource1 = new ol.source.WMTS({
     url: self.Config.tileUrl1,
     tileLoadFunction: function(imageTile, src) {
@@ -221,16 +226,16 @@
       }),
       self.circleLayer,
       self.lineLayer,
-      self.polygonLayer,
+      self.polygonLayer
     ],
     target: containerId,
     controls: control,
     view: new ol.View({
       //center: [120.48201551754718, 30.086689326561373],
-      center:[-50.8447265625, -30.682754516601562],
-      // center: [116.99820161480756, 36.64675166297745],
+      // center:[-50.8447265625, -30.682754516601562],
+      center: [116.99820161480756, 36.64675166297745],
       projection: ol.proj.get('EPSG:4326'),
-      zoom: 2,
+      zoom: 13,
       minZoom: 1,
       maxZoom: 18
     })
@@ -626,66 +631,179 @@ TGisMap.prototype.addPolygon = function(draws, options, source) {
 };
 
 // 轨迹回放动画
-TGisMap.prototype.trackBack = function(opts, source) {
-  var self=this;
-  let line=[
-    [-50.35323858261111, -15.75703382492064],
-    [11.103036403655977, -5.674567222595201],
-    [-40.41316509246829, 25.51289319992067]
-  ]
-  var routeCoords = line;
-  // console.log(routeCoords)
-  var routeLength = routeCoords.length;
-
-  var routeFeature = new ol.Feature({
-    type: 'route',
-    geometry: new ol.geom.LineString(routeCoords)
-  });
-  var geoMarker = new ol.Feature({
-    type: 'geoMarker',
-    geometry: new ol.geom.Point(routeCoords[0])
-  });
-  var startMarker = new ol.Feature({
-    type: 'icon',
-    geometry: new ol.geom.Point(routeCoords[0])
-  });
-  var endMarker = new ol.Feature({
-    type: 'icon',
-    geometry: new ol.geom.Point(routeCoords[routeLength - 1])
-  });
-
-  var styles = {
-    'route': new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        width: 6, color: [237, 212, 0, 0.8]
-      })
-    }),
-    'icon': new ol.style.Style({
-      image: new ol.style.Icon({
-        anchor: [0.5, 1],
-        src: 'https://openlayers.org/en/v4.6.5/examples/data/icon.png'
-      })
-    }),
-    'geoMarker': new ol.style.Style({
-      image: new ol.style.Circle({
-        radius: 7,
-        snapToPixel: false,
-        fill: new ol.style.Fill({ color: 'black' }),
+TGisMap.prototype.trackBack = function(lineArr, options) {
+  //当前地图内容
+  let self = this;
+  // 当前轨迹回放
+  let onTrackBack = {};
+  //轨迹回放样式
+  let onStyle = {};
+  //判断动画是否进行
+  let animating = false;
+  //动画速度
+  let speed, now;
+  //传递过来的参数
+  options = options || {};
+  //定义一个轨迹回放类
+  function TrackBack(lineArr, options) {
+    onTrackBack.trackBackArr = lineArr;
+    onTrackBack.pointIndex = 0;
+    onTrackBack.timeout = true;
+    onTrackBack.speed = options.speed || 100;
+    onStyle = {
+      _lineColor: options.lineColor || [237, 212, 0, 0.8], //线条颜色
+      _lineWidth: options.lineWidth || 6, //线条粗细
+      _pointImage: options.pointImage || 'https://openlayers.org/en/v4.6.5/examples/data/icon.png', //点图片
+      _circleRadius: options.circleRadius || 7, //点半径
+      _circleFillColor: options.circleFillColor || 'black', //点填充颜色
+      _circleColor: options.circleColor || 'white', //点线条颜色
+      _circleWidth: options.circleWidth || 2, //点线条粗细
+      _allPointShow: options.pointShow || true
+    };
+  }
+  // 开始动画初始化
+  TrackBack.prototype.init = function() {
+    if (self.vectorLayer) {
+      self.map.removeLayer(self.vectorLayer);
+    }
+    onTrackBack.routeCoords = calculationPoint(onTrackBack.trackBackArr);
+    onTrackBack.routeLength = onTrackBack.routeCoords.length;
+    onTrackBack.routeFeature = new ol.Feature({
+      type: 'route',
+      geometry: new ol.geom.LineString(onTrackBack.routeCoords)
+    });
+    onTrackBack.geoMarker = new ol.Feature({
+      type: 'geoMarker',
+      geometry: new ol.geom.Point(onTrackBack.routeCoords[0])
+    });
+    onTrackBack.startMarker = new ol.Feature({
+      type: 'icon',
+      geometry: new ol.geom.Point(onTrackBack.routeCoords[0])
+    });
+    onTrackBack.endMarker = new ol.Feature({
+      type: 'icon',
+      geometry: new ol.geom.Point(onTrackBack.routeCoords[onTrackBack.routeLength - 1])
+    });
+    onTrackBack.styles = {
+      route: new ol.style.Style({
         stroke: new ol.style.Stroke({
-          color: 'white', width: 2
+          width: onStyle._lineWidth,
+          color: onStyle._lineColor
+        })
+      }),
+      icon: new ol.style.Style({
+        image: new ol.style.Icon({
+          anchor: [0.5, 1],
+          src: onStyle._pointImage
+        })
+      }),
+      geoMarker: new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: onStyle._circleRadius,
+          snapToPixel: false,
+          fill: new ol.style.Fill({ color: onStyle._circleFillColor }),
+          stroke: new ol.style.Stroke({
+            color: onStyle._circleColor,
+            width: onStyle._circleWidth
+          })
         })
       })
-    })
+    };
+    self.vectorLayer = new ol.layer.Vector({
+      source: new ol.source.Vector({
+        features: [onTrackBack.routeFeature, onTrackBack.geoMarker, onTrackBack.startMarker, onTrackBack.endMarker]
+      }),
+      style: function(feature) {
+        // hide geoMarker if animation is active
+        if (animating && feature.get('type') === 'geoMarker') {
+          return null;
+        }
+        return onTrackBack.styles[feature.get('type')];
+      }
+    });
+    self.map.addLayer(self.vectorLayer);
   };
-  self.vectorLayer = new ol.layer.Vector({
-    source: new ol.source.Vector({
-      features: [routeFeature, geoMarker, startMarker, endMarker]
-    })
-  });
-  self.map.addLayer(self.vectorLayer)
+  // 动画执行
+  TrackBack.prototype.moveFeature = function(event) {
+    let that = this;
+    var vectorContext = event.vectorContext;
+    var frameState = event.frameState;
+    if (animating && onTrackBack.timeout) {
+      var elapsedTime = frameState.time - now;
+      onTrackBack.pointIndex = Math.round(onTrackBack.speed * elapsedTime / 1000);
+      if (onTrackBack.pointIndex >= onTrackBack.routeLength) {
+        that.stopAnimation(true);
+        return;
+      }
+    }
+    var currentPoint = new ol.geom.Point(onTrackBack.routeCoords[onTrackBack.pointIndex]);
+    var feature = new ol.Feature(currentPoint);
+    //设置轨迹回放的时候跳转的图标
+    vectorContext.drawFeature(feature, onTrackBack.styles.geoMarker);
+    //请求重新渲染地图
+    self.map.render();
+  };
+  // 开始轨迹回放
+  TrackBack.prototype.startAnimation = function() {
+    let that = this;
+    if (animating) {
+      that.stopAnimation(false);
+    } else {
+      animating = true;
+      now = new Date().getTime();
+      onTrackBack.geoMarker.setStyle(null);
+      debugger;
+      self.map.getView().setCenter(onTrackBack.routeCoords[Math.round(onTrackBack.routeLength / 2)]);
+      self.map.on('postcompose', that.moveFeature, that);
+      self.map.render();
+    }
+  };
+  // 停止轨迹回放
+  TrackBack.prototype.stopAnimation = function(ended) {
+    let that = this;
+    animating = false;
+    var coord = ended ? onTrackBack.routeCoords[onTrackBack.routeLength - 1] : onTrackBack.routeCoords[0];
+    /** @type {ol.geom.Point} */ onTrackBack.geoMarker.getGeometry().setCoordinates(coord);
+    self.map.un('postcompose', that.moveFeature, that);
+  };
+  // 暂停轨迹回放
+  TrackBack.prototype.timeOutAnimation = function(ended) {
+    onTrackBack.timeout = !onTrackBack.timeout;
+  };
 
+  //分成N个点.因为没有办法制作平滑效果 只能自己加点位信息
+  function calculationPoint(points) {
+    //添加多少个点
+    var ADD_NUMBER = 200;
+    var arr = [];
+    arr.push(points[0]);
+    for (var i = 1; i < points.length; i++) {
+      var p1 = points[i];
+      var p2 = points[i - 1];
+      //算出他们之间x轴的距离
+      var _x = p1[0] - p2[0];
+      var _y = p1[1] - p2[1];
+      for (var z = 1; z <= ADD_NUMBER; z++) {
+        //算出x轴距离中 1-ADD_NUMBER 个点的x坐标
+        var tempX = p2[0] + _x / ADD_NUMBER * z;
+        var tempY = p2[1] + _y / ADD_NUMBER * z;
+        arr.push([tempX, tempY]);
+      }
+    }
+    return arr;
+  }
+
+  // 删掉轨迹回放
+  TrackBack.prototype.destroy = function() {
+    let that = this;
+    that.stopAnimation();
+    self.map.removeLayer(self.vectorLayer);
+  };
+
+  //返回新的轨迹回放类
+  let rst = new TrackBack(lineArr, options);
+  return rst;
 };
-
 
 //添加单个案件标注
 TGisMap.prototype.addCaseMarker = function(opts) {
