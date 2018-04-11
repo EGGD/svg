@@ -649,7 +649,7 @@ TGisMap.prototype.trackBack = function(lineArr, options) {
     onTrackBack.trackBackArr = lineArr;
     onTrackBack.pointIndex = 0;
     onTrackBack.timeout = true;
-    onTrackBack.speed = options.speed || 100;
+    onTrackBack.speed = options.speed || 10;
     onStyle = {
       _lineColor: options.lineColor || [237, 212, 0, 0.8], //线条颜色
       _lineWidth: options.lineWidth || 6, //线条粗细
@@ -730,7 +730,7 @@ TGisMap.prototype.trackBack = function(lineArr, options) {
     var frameState = event.frameState;
     if (animating && onTrackBack.timeout) {
       var elapsedTime = frameState.time - now;
-      onTrackBack.pointIndex = Math.round(onTrackBack.speed * elapsedTime / 1000);
+      onTrackBack.pointIndex += onTrackBack.speed;
       if (onTrackBack.pointIndex >= onTrackBack.routeLength) {
         that.stopAnimation(true);
         return;
@@ -752,7 +752,6 @@ TGisMap.prototype.trackBack = function(lineArr, options) {
       animating = true;
       now = new Date().getTime();
       onTrackBack.geoMarker.setStyle(null);
-      debugger;
       self.map.getView().setCenter(onTrackBack.routeCoords[Math.round(onTrackBack.routeLength / 2)]);
       self.map.on('postcompose', that.moveFeature, that);
       self.map.render();
@@ -762,8 +761,9 @@ TGisMap.prototype.trackBack = function(lineArr, options) {
   TrackBack.prototype.stopAnimation = function(ended) {
     let that = this;
     animating = false;
+    onTrackBack.pointIndex=0;
     var coord = ended ? onTrackBack.routeCoords[onTrackBack.routeLength - 1] : onTrackBack.routeCoords[0];
-    /** @type {ol.geom.Point} */ onTrackBack.geoMarker.getGeometry().setCoordinates(coord);
+    onTrackBack.geoMarker.getGeometry().setCoordinates(coord);
     self.map.un('postcompose', that.moveFeature, that);
   };
   // 暂停轨迹回放

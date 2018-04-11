@@ -1,36 +1,67 @@
 
 <template>
-  <div class="list-main">
-    <!-- v-if="agingDetail.showFlg" -->
-    <el-dialog title="案件详情" :visible.sync="agingDetail.showFlg">
-      <AgingDetail @hide="detailhide" :agingDetail="agingDetail" />
-    </el-dialog>
-    <el-table ref="agingTable" v-loading="loading" :data="todolist.Items" :row-class-name="tableRowClassName" border style="width: 100%" height="96%">
-      <el-table-column fixed prop="ID" label="ID" class="list-main-table-column">
-      </el-table-column>
-      <el-table-column prop="Code" label="Code" class="list-main-table-column">
-      </el-table-column>
-      <el-table-column prop="ItemName" label="合同" class="list-main-table-column">
-      </el-table-column>
-      <el-table-column prop="RegionName" label="地区" class="list-main-table-column">
-      </el-table-column>
-      <el-table-column prop="Address" label="地址" class="list-main-table-column-two">
-      </el-table-column>
-      <el-table-column prop="ReportTime" label="上报时间" class="list-main-table-column">
-      </el-table-column>
-      <el-table-column prop="Description" label="操作内容" class="list-main-table-column">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <div class="block">
-      <el-pagination :page-size="limit" :page-count="Math.ceil(todolist.Total/page)" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="prev, pager, next, jumper">
-      </el-pagination>
-      <el-button size="small" @click="saveExcel">下载</el-button>
+    <div class="list-main">
+        <!-- v-if="agingDetail.showFlg" -->
+        <el-dialog title="案件详情"
+            :visible.sync="agingDetail.showFlg">
+            <AgingDetail @hide="detailhide"
+                :agingDetail="agingDetail" />
+        </el-dialog>
+        <el-table ref="agingTable"
+            v-loading="loading"
+            :data="todolist.Items"
+            :row-class-name="tableRowClassName"
+            border
+            style="width: 100%"
+            height="96%">
+            <el-table-column fixed
+                prop="ID"
+                label="ID"
+                class="list-main-table-column">
+            </el-table-column>
+            <el-table-column prop="Code"
+                label="Code"
+                class="list-main-table-column">
+            </el-table-column>
+            <el-table-column prop="ItemName"
+                label="合同"
+                class="list-main-table-column">
+            </el-table-column>
+            <el-table-column prop="RegionName"
+                label="地区"
+                class="list-main-table-column">
+            </el-table-column>
+            <el-table-column prop="Address"
+                label="地址"
+                class="list-main-table-column-two">
+            </el-table-column>
+            <el-table-column prop="ReportTime"
+                label="上报时间"
+                class="list-main-table-column">
+            </el-table-column>
+            <el-table-column prop="Description"
+                label="操作内容"
+                class="list-main-table-column">
+                <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row)"
+                        type="text"
+                        size="small">查看</el-button>
+                    <el-button type="text"
+                        size="small">编辑</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <div class="block">
+            <el-pagination :page-size="limit"
+                :page-count="Math.ceil(todolist.Total/page)"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next, jumper">
+            </el-pagination>
+            <el-button size="small"
+                @click="saveExcel">下载</el-button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>

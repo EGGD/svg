@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as env from './env.js';
 import router from '../router/index';
+import store from '../store/index';
 import qs from 'qs';
 
 var baseAxios = axios.create({
@@ -13,8 +14,18 @@ var baseAxios = axios.create({
 });
 
 router.beforeEach((to, from, next) => {
+  //判断是否要进行校验
   if (to.meta.requiresAuth) {
-    next();
+      //获取登录时间戳 当前时间 并计算相差值 相差值大于1 就跳转到登录页 否则就将本地登录信息赋值到 store 里面
+    let userTime = new Date(localStorage.getItem('userTime')),
+      flgUserTime = new Date(),
+      timeFlg = parseInt(flgUserTime - userTime) / 1000 / 60 / 60 / 24;
+    if (timeFlg > 1) {
+      router.push({ path: '/' });
+    } else {
+      store.dispatch('setLogin', JSON.parse(localStorage.getItem('user')));
+      next();
+    }
   } else {
     if (to.name === 'Login') {
       next();
@@ -32,68 +43,84 @@ router.beforeEach((to, from, next) => {
   // }
 });
 
-baseAxios.interceptors.request.use(function (config) {
-  config.data = qs.stringify(config.data);
-  config.headers['content-type'] = 'application/x-www-form-urlencoded';
-  if (config.auth) {
-    return config;
-  }
-  // if (config.method === 'post') {
-  //   config.data = qs.stringify({
-  //     ...config.data
-  //   })
-  // }
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
-
-baseAxios.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  if (error.response) {
-    switch (error.response.status) {
-      case 401:
-        router.replace({
-          path: '/',
-          query: {
-            redirect: router.currentRoute.fullPath
-          }
-        });
+baseAxios.interceptors.request.use(
+  function(config) {
+    config.data = qs.stringify(config.data);
+    config.headers['content-type'] = 'application/x-www-form-urlencoded';
+    if (config.auth) {
+      return config;
     }
+    // if (config.method === 'post') {
+    //   config.data = qs.stringify({
+    //     ...config.data
+    //   })
+    // }
+    return config;
+  },
+  function(error) {
+    return Promise.reject(error);
   }
-  return Promise.reject(error.response.data);
-});
+);
 
-baseAxios.getAsync = function (commit, URL, params) {
-  return new Promise(function (resolve, reject) {
-    baseAxios.get(URL, {
-      params: params
-    }).then((response) => {
-      var retData = response.data;
-      // var orginalData = retData.Data
-      // commit(URL, orginalData)
-      resolve(retData);
-    }, (error) => {
-      console.log(error);
-      reject(error);
-    });
+baseAxios.interceptors.response.use(
+  function(response) {
+    return response;
+  },
+  function(error) {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          router.replace({
+            path: '/',
+            query: {
+              redirect: router.currentRoute.fullPath
+            }
+          });
+      }
+    }
+    return Promise.reject(error.response.data);
+  }
+);
+
+baseAxios.getAsync = function(commit, URL, params) {
+  return new Promise(function(resolve, reject) {
+    baseAxios
+      .get(URL, {
+        params: params
+      })
+      .then(
+        response => {
+          var retData = response.data;
+          // var orginalData = retData.Data
+          commit(URL, retData)
+          resolve(retData);
+        },
+        error => {
+          console.log(error);
+          reject(error);
+        }
+      );
   });
 };
 
-baseAxios.deleteAsync = function (commit, URL, params) {
-  return new Promise(function (resolve, reject) {
-    baseAxios.delete(URL, {
-      params: params
-    }).then((response) => {
-      var retData = response.data;
-      var orginalData = retData.Data;
-      commit(URL, orginalData);
-      resolve(retData);
-    }, (error) => {
-      console.log(error);
-      reject(error);
-    });
+baseAxios.deleteAsync = function(commit, URL, params) {
+  return new Promise(function(resolve, reject) {
+    baseAxios
+      .delete(URL, {
+        params: params
+      })
+      .then(
+        response => {
+          var retData = response.data;
+          var orginalData = retData.Data;
+          commit(URL, orginalData);
+          resolve(retData);
+        },
+        error => {
+          console.log(error);
+          reject(error);
+        }
+      );
   });
 };
 
@@ -111,49 +138,53 @@ baseAxios.deleteAsync = function (commit, URL, params) {
 //   })
 // }
 
-baseAxios.postAsync = function (commit, URL, params, headers = {}) {
-  return new Promise(function (resolve, reject) {
-    baseAxios.post(URL, params, headers
-    ).then((response) => {
-      var retData = response.data;
-      // var orginalData = retData.Data;
-      // commit(URL, data);
-      resolve(retData);
-    }, (error) => {
-      console.log(error);
-      reject(error);
-    });
+baseAxios.postAsync = function(commit, URL, params, headers = {}) {
+  return new Promise(function(resolve, reject) {
+    baseAxios.post(URL, params, headers).then(
+      response => {
+        var retData = response.data;
+        // var orginalData = retData.Data;
+        // commit(URL, data);
+        resolve(retData);
+      },
+      error => {
+        console.log(error);
+        reject(error);
+      }
+    );
   });
 };
 
-baseAxios.postFormDataAsync = function (commit, URL, params, headers = {}) {
+baseAxios.postFormDataAsync = function(commit, URL, params, headers = {}) {
   params = objectToFormData(params);
-  return new Promise(function (resolve, reject) {
-    baseAxios.post(URL, params, headers
-    ).then((response) => {
-      var retData = response.data;
-      // var orginalData = retData.Data;
-      // commit(URL, data);
-      resolve(retData);
-    }, (error) => {
-      console.log(error);
-      reject(error);
-    });
+  return new Promise(function(resolve, reject) {
+    baseAxios.post(URL, params, headers).then(
+      response => {
+        var retData = response.data;
+        // var orginalData = retData.Data;
+        // commit(URL, data);
+        resolve(retData);
+      },
+      error => {
+        console.log(error);
+        reject(error);
+      }
+    );
   });
 };
 
-function objectToFormData (object) {
+function objectToFormData(object) {
   const formData = new FormData();
   if (Object.prototype.toString.call(object) === '[object Array]') {
-    Object.keys(object).forEach((key) => {
-      Object.keys(object[key]).forEach((key1) => {
+    Object.keys(object).forEach(key => {
+      Object.keys(object[key]).forEach(key1 => {
         formData.append(key1, object[key][key1]);
       });
     });
   } else {
-    Object.keys(object).forEach((key) => {
+    Object.keys(object).forEach(key => {
       if (Object.prototype.toString.call(object[key]) === '[object Array]') {
-        Object.keys(object[key]).forEach((key1) => {
+        Object.keys(object[key]).forEach(key1 => {
           formData.append(key, object[key][key1]);
         });
       } else {

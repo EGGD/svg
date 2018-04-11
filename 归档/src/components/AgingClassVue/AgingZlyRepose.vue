@@ -1,19 +1,19 @@
 <template>
-  <div class="right-mian">
-    <button @click="addCircle">画圆</button>
-    <button @click="addLineString">画线</button>
-    <button @click="addSquare">画正方形</button>
-    <button @click="addPolygon">画多边形</button>
-    <button @click="trackBack">生成轨迹回放</button>
-    <button @click="trackBackStart">开始</button>
-    <button @click="trackBackStop">停止</button>
-    <button @click="trackBackdestroy">销毁</button>
-    <button @click="timeOutAnimation">暂停</button>
-    <div id="map"
-      @click="drawPoint">
-      上报
+    <div class="right-mian">
+        <button @click="addCircle">画圆</button>
+        <button @click="addLineString">画线</button>
+        <button @click="addSquare">画正方形</button>
+        <button @click="addPolygon">画多边形</button>
+        <button @click="trackBack">生成轨迹回放</button>
+        <button @click="trackBackStart">开始</button>
+        <button @click="trackBackStop">停止</button>
+        <button @click="trackBackdestroy">销毁</button>
+        <button @click="timeOutAnimation">暂停</button>
+        <div id="map"
+            @click="drawPoint">
+            上报
+        </div>
     </div>
-  </div>
 
 </template>
 
@@ -27,7 +27,6 @@ export default {
     },
     addCircle() {
       oMap.clickCircle();
-      // this.data.addGridByGridCode({ gridCode: "330621056" });
     },
     addLineString() {
       oMap.clickLineString();
@@ -52,22 +51,22 @@ export default {
         [117.02696800231934, 36.623919904232025],
         [116.9977855682373, 36.61259025335312],
         [116.96688652038574, 36.62048667669296],
-        [116.96431159973145, 36.631129682064056],
-      ]
+        [116.96431159973145, 36.631129682064056]
+      ];
       window.trb = oMap.trackBack(line);
       trb.init();
     },
     trackBackStart() {
       trb.startAnimation();
     },
-    trackBackdestroy(){
+    trackBackdestroy() {
       trb.destroy();
     },
     trackBackStop() {
       trb.stopAnimation();
     },
-    timeOutAnimation(){
-      trb.timeOutAnimation()
+    timeOutAnimation() {
+      trb.timeOutAnimation();
     },
     drawPoint() {
       // console.log(arguments)
@@ -80,11 +79,6 @@ export default {
     };
   },
   mounted() {
-    // let bodyH = $('body').outerHeight(true);
-    // let bodyW = $('body').outerWidth(true);
-    // let headerH = $('header').outerHeight(true);
-    // $('#map').height(bodyH - headerH + 'px');
-    // window.oMap = new TGisMap('map', { isShowZRWG: true, isShowBtnGroup: false });
     window.oMap = new TGisMap('map', { isShowZRWG: true, isShowBtnGroup: false });
   }
 };

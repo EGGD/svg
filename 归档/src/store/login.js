@@ -204,6 +204,9 @@ const actions = {
           reject(err);
         });
     });
+  },
+  setLogin({commit},params){
+    commit(api.loginUrl, params);
   }
 };
 const mutations = {

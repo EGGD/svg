@@ -127,98 +127,116 @@ const getters = {
 };
 const actions = {
   // 获取实效类资料员代办列表数据
-  getATodoList ({ commit }, params) {
-    return new Promise(function (resolve, reject) {
-      axios.getAsync(commit, api.zlyTodoListUrl, params).then((value) => {
-        // console.log(value)
-        commit(api.zlyTodoListUrl, value);
-        resolve(value);
-      }).catch(err => {
-        reject(err);
-      });
+  getATodoList({ commit,state }, params) {
+      //this.getters 可以获取到所有
+    return new Promise(function(resolve, reject) {
+      axios
+        .getAsync(commit, api.ZLY_TODO_LIST_URL, params)
+        .then(value => {
+          // console.log(value)
+        //   commit(api.ZLY_TODO_LIST_URL, value);
+          resolve(value);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
   // 获取资料员代办列表内详细数据
-  getAgingClassData ({ commit }, params) {
-    return new Promise(function (resolve, reject) {
-      axios.getAsync(commit, api.zlyGetAgingClassByID, params).then((value) => {
-        // console.log(value)
-        commit(api.zlyGetAgingClassByID, value);
-        resolve(value);
-      }).catch(err => {
-        reject(err);
-      });
+  getAgingClassData({ commit }, params) {
+    return new Promise(function(resolve, reject) {
+      axios
+        .getAsync(commit, api.ZLY_GET_AGING_CLASS_BY_ID, params)
+        .then(value => {
+          // console.log(value)
+        //   commit(api.ZLY_GET_AGING_CLASS_BY_ID, value);
+          resolve(value);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
-  getzlyRSources ({ commit }, params) {
-    return new Promise(function (resolve, reject) {
-      axios.getAsync(commit, api.zlyRGetSources, params).then((value) => {
-        // console.log(value)
-        commit(api.zlyRGetSources, value);
-        resolve(value);
-      }).catch(err => {
-        reject(err);
-      });
+  getzlyRSources({ commit }, params) {
+    return new Promise(function(resolve, reject) {
+      axios
+        .getAsync(commit, api.ZLY_GET_SOURCES, params)
+        .then(value => {
+          // console.log(value)
+        //   commit(api.ZLY_GET_SOURCES, value);
+          resolve(value);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
-  getzlyItems ({ commit }, params) {
-    return new Promise(function (resolve, reject) {
-      axios.getAsync(commit, api.zlyGetItems, params).then((value) => {
-        // console.log(value)
-        commit(api.zlyGetItems, value);
-        resolve(value);
-      }).catch(err => {
-        reject(err);
-      });
+  getzlyItems({ commit }, params) {
+    return new Promise(function(resolve, reject) {
+      axios
+        .getAsync(commit, api.ZLY_GET_ITEMS, params)
+        .then(value => {
+          // console.log(value)
+        //   commit(api.ZLY_GET_ITEMS, value);
+          resolve(value);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
-  getzlyBigTypes ({ commit }, params) {
-    return new Promise(function (resolve, reject) {
-      axios.getAsync(commit, api.zlyGetBigTypes, params).then((value) => {
-        // console.log(value)
-        commit(api.zlyGetBigTypes, value);
-        resolve(value);
-      }).catch(err => {
-        reject(err);
-      });
+  getzlyBigTypes({ commit }, params) {
+    return new Promise(function(resolve, reject) {
+      axios
+        .getAsync(commit, api.ZLY_GET_BIG_TYPES, params)
+        .then(value => {
+          // console.log(value)
+        //   commit(api.ZLY_GET_BIG_TYPES, value);
+          resolve(value);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
-  getzlySmallTypes ({ commit }, params) {
-    return new Promise(function (resolve, reject) {
-      axios.getAsync(commit, api.zlyGetSmallTypes, params).then((value) => {
-        // console.log(value)
-        commit(api.zlyGetSmallTypes, value);
-        resolve(value);
-      }).catch(err => {
-        reject(err);
-      });
+  getzlySmallTypes({ commit }, params) {
+    return new Promise(function(resolve, reject) {
+      axios
+        .getAsync(commit, api.ZLY_GET_SMALL_TYPES, params)
+        .then(value => {
+          // console.log(value)
+        //   commit(api.ZLY_GET_SMALL_TYPES, value);
+          resolve(value);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
-  clearATodoList ({ commit }) {
+  clearATodoList({ commit }) {
     commit('clearATodoList');
   }
-
 };
 const mutations = {
-  [api.zlyTodoListUrl] (state, data) {
+  [api.ZLY_TODO_LIST_URL](state, data) {
     state.AgingTodoListData = data;
   },
-  [api.zlyGetAgingClassByID] (state, data) {
+  [api.ZLY_GET_AGING_CLASS_BY_ID](state, data) {
     state.zlyGetAgingClassData = data;
   },
-  [api.zlyRGetSources] (state, data) {
-    state.zlyRGetSourcesData = data;
+  [api.ZLY_GET_SOURCES](state, data) {
+    state.zlyGetSourcesData = data;
   },
-  [api.zlyGetItems] (state, data) {
+  [api.ZLY_GET_ITEMS](state, data) {
     state.zlyGetItemsData = data;
   },
-  [api.zlyGetBigTypes] (state, data) {
+  [api.ZLY_GET_BIG_TYPES](state, data) {
     state.zlyGetBigTypesData = data;
   },
-  [api.zlyGetSmallTypes] (state, data) {
+  [api.ZLY_GET_SMALL_TYPES](state, data) {
     state.zlyGetSmallTypesData = data;
   },
-  clearATodoList (state) {
+  clearATodoList(state) {
     state.AgingTodoListData = [];
   }
 };

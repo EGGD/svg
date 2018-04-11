@@ -24,7 +24,4 @@ if (process.env.NODE_ENV === 'development') {
   imgBaseUrl = '';
 }
 
-export {
-  baseUrl,
-  imgBaseUrl
-};
+export { baseUrl, imgBaseUrl };
